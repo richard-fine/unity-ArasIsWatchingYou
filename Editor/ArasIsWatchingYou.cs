@@ -78,7 +78,7 @@ public class ArasIsWatchingYou {
 	private static Texture2D LoadBase64(string str)
 	{
 		var b = System.Convert.FromBase64String(str);
-		var tex = new Texture2D(1, 1);
+		var tex = new Texture2D(1, 1, TextureFormat.ARGB32, false, true);
 		tex.LoadImage(b);
 		return tex;
 	}
