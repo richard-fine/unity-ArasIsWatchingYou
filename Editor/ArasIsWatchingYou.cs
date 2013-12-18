@@ -95,12 +95,11 @@ public class ArasIsWatchingYou {
 		if(!_eyesTex)
 			_eyesTex = LoadBase64(ArasEyes);
 
-		var svHeight = sv.position.height;
 
 		var effectiveStr = DisplayStr * (_allTheWay ? 1f : 0.65f);
 
 		Rect rect = new Rect(sv.position.width - _headTex.width, 
-		                     svHeight - _headTex.height * effectiveStr, _headTex.width, _headTex.height * effectiveStr);
+		                     sv.position.height - _headTex.height * effectiveStr, _headTex.width, _headTex.height * effectiveStr);
 
 		Rect texCoords = new Rect(0, 1 - effectiveStr, 1, effectiveStr);
 
@@ -123,21 +122,18 @@ public class ArasIsWatchingYou {
 
 		var oldMat = GUI.matrix;
 
+		var flipMatrix = Matrix4x4.identity;
 		if(_isFlippedX)
 		{
-			var flipMatrix = Matrix4x4.identity;
 			flipMatrix.m00 = -1;
 			flipMatrix.m03 = sv.position.width;
-			GUI.matrix *= flipMatrix;
 		}
-
 		if(_isFlippedY)
 		{
-			var flipMatrix = Matrix4x4.identity;
 			flipMatrix.m11 = -1;
 			flipMatrix.m13 = sv.position.height + 55f;
-			GUI.matrix *= flipMatrix;
 		}
+		GUI.matrix = flipMatrix;
 
 		GUI.DrawTexture (eyesRect, _eyesTex);
 		GUI.DrawTextureWithTexCoords(rect, _headTex, texCoords);
